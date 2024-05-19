@@ -28,4 +28,3 @@
 - YOLO (You only look once) and SSD(Single Shot Multibox Detector) use a single single CNN. More efficient and less complex.
 - Object Detection Evaluation Metrics : mAP, AP, IoU(Intersection over Union)
 - Yolo algorithm for object detection - https://kili-technology.com/data-labeling/machine-learning/yolo-algorithm-real-time-object-detection-from-a-to-z
-- dfdsf
