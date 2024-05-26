@@ -49,3 +49,14 @@
 - In the next step it takes another random sample (or small batch of sample) to improve the gradient.
 - Another usefulness is when we add a data. We do not need to perform the gradient descent from the beginning, rather we can perform
   another step taking the new data as the sample and updating the parameters.
+
+-------------------Football-Analysis-With-YOLO-------------------
+- Download the YOLO model
+- Detect the objects in the video with the YOLO model
+- It detects many objects from its ~80 possible different classes
+- We need to train the model to detect only the required objects (players, ball, and referees)
+- Download the training dataset form roboflow
+- Train with YOLO model and with the provided dataset to find the best model
+- This model now detects the players, referees, and ball
+- But our model still confuses between goalkeeper and players because of such less dataset
+- Therefore, we need to change the detections from goalkeeper to players because detecting goalkeeper is not significant

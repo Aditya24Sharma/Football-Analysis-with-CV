@@ -1,11 +1,18 @@
-from ultralytics import YOLO
+from utils import read_video, save_video
+from trackers import Tracker
 
+def main():
+    #read video
+    video_frames = read_video('input_videos/08fd33_4.mp4')
 
-#yolov8 is convinient than 9
-model = YOLO('yolov8l')
+    #Initialize Tracker
+    tracker = Tracker('models/best.pt')
 
-results = model.predict('input_videos/08fd33_4.mp4', save = True)
-print(results[0])
-print(['x' for i in range(10)])
-for box in results[0].boxes:
-    print(box)
+    tracks = tracker.get_object_track(video_frames)
+
+    #save video
+    save_video(video_frames, 'output_videos/output_video.avi')
+
+if __name__ == '__main__':
+    main()
+    
