@@ -60,3 +60,9 @@
 - This model now detects the players, referees, and ball
 - But our model still confuses between goalkeeper and players because of such less dataset
 - Therefore, we need to change the detections from goalkeeper to players because detecting goalkeeper is not significant
+- We use supervision library to seamlessly integration object tracking in our detection. 
+- using Bytetrack() functionality it tracks our objects path and motion by assigning them with tracker id
+- We store the detected data for player, referees, and the ball in a dictionary. It contains the bounding box information of 
+  each classes
+-   
+
