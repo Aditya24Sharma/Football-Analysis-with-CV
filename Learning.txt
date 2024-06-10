@@ -64,5 +64,4 @@
 - using Bytetrack() functionality it tracks our objects path and motion by assigning them with tracker id
 - We store the detected data for player, referees, and the ball in a dictionary. It contains the bounding box information of 
   each classes
--   
-
+- So that we do not need to run the trackers every time we store the tracks data using studs and can import it after first run
