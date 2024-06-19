@@ -18,12 +18,10 @@ def main():
 
 
     print('Ran get object track')
-    print(type(video_frames))
-    print(len(video_frames[0:300]))
     time.sleep(1)
 
     #Draw output
-    output_video_frames = tracker.draw_annotations(video_frames[0:300], tracks) 
+    output_video_frames = tracker.draw_annotations(video_frames[0:300], tracks) #only taking 300 frames because my computer couldn't handle very huge number
 
 
     print('got output_video_frames')

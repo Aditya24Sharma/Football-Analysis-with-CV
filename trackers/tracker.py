@@ -2,6 +2,7 @@ from ultralytics import YOLO
 import supervision as sv  #supervision helps to seamlessly track the objects that our model detected 
 import pickle
 import os
+import numpy as np
 import cv2
 import sys
 sys.path.append('../')  #allowing python to look for parent directories for the modules
@@ -147,6 +148,23 @@ class Tracker:
         print('Ran the ellipse function')
 
         return frame
+    
+
+    def draw_triangle(self, frame, bbox, color):
+        y = int(bbox[1])
+        x, _ = get_center_of_bbox(bbox)
+
+        triangle_points = np.array([
+            [x,(y-2)],
+            [(x - 10), (y - 20)],
+            [(x+ 10), (y - 20)]
+        ])
+
+        cv2.drawContours(frame, [triangle_points], 0, color, cv2.FILLED)    # the inside color
+        cv2.drawContours(frame, [triangle_points], 0, (0,0,0), 2)   # the border
+
+        return frame
+
 
     def draw_annotations(self, video_frames, tracks):
         output_video_frames = []
@@ -165,6 +183,10 @@ class Tracker:
             #Draw referees
             for track_id, referee in referee_dict.items(): 
                 frame = self.draw_ellipse(frame, referee["bbox"], (0,255,255)) 
+
+            #Draw ball
+            for track_id, ball in ball_dict.items():
+                frame = self.draw_triangle(frame, ball["bbox"], (0, 255,0))
 
             output_video_frames.append(frame)
 
