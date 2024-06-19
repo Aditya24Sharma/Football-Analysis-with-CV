@@ -65,3 +65,7 @@
 - We store the detected data for player, referees, and the ball in a dictionary. It contains the bounding box information of 
   each classes
 - So that we do not need to run the trackers every time we store the tracks data using studs and can import it after first run
+- We now change the bouding box to a circular tracker for each player that follows the players. This is achieved my simply changing the bouding box to an ellipse. 
+[[our initial output of the model is in runs directory and it gives bbox, however after we run it through main.py we take input video and process it and then produce
+an output, in this step we draw an ellipse. Hence, this doesn't show the video output like that of a model.]]
+- We now add the lable of each player with the ellipse

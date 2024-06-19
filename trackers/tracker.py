@@ -97,7 +97,7 @@ class Tracker:
         
         return tracks
 
-    def draw_ellipse(self, frame, bbox, color, track_id):
+    def draw_ellipse(self, frame, bbox, color, track_id = None):
         y2 = int(bbox[3])
         x_center, _ = get_center_of_bbox(bbox)  # '_' is a throwback variable that we are intentionally ignoring
         width = get_bbox_width(bbox)
@@ -114,6 +114,36 @@ class Tracker:
             lineType=cv2.LINE_4, 
         )
 
+        rectange_width = 40
+        rectangle_height = 20
+        
+        x1_rect = x_center - rectange_width//2
+        x2_rect = x_center + rectange_width//2
+
+        y1_rect = (y2 - rectangle_height//2) + 15
+        y2_rect = (y2 + rectangle_height//2) + 15
+
+        if track_id is not None:
+            cv2.rectangle(frame, 
+                          (x1_rect, y1_rect),
+                          (x2_rect, y2_rect),
+                          color,
+                          cv2.FILLED)
+            
+            x1_text = x1_rect + 12
+            if track_id > 99:
+                x1_text -= 10
+            
+            cv2.putText(frame, 
+                        f'{track_id}', 
+                        (x1_text, y1_rect + 15), 
+                        cv2.FONT_HERSHEY_COMPLEX,
+                        0.6, 
+                        (0,0,0),
+                        2
+                        )
+            
+
         print('Ran the ellipse function')
 
         return frame
@@ -122,7 +152,7 @@ class Tracker:
         output_video_frames = []
 
         for frame_num, frame in enumerate(video_frames):
-            frame = frame.copy()
+            # frame = frame.copy()
 
             player_dict = tracks['players'][frame_num]
             referee_dict = tracks['referees'][frame_num]
@@ -131,6 +161,10 @@ class Tracker:
             #Draw players
             for track_id, player in player_dict.items(): #converting the dictionary to lists
                 frame = self.draw_ellipse(frame, player["bbox"], (0,0,255), track_id) #will be sending different colors to different teams
+            
+            #Draw referees
+            for track_id, referee in referee_dict.items(): 
+                frame = self.draw_ellipse(frame, referee["bbox"], (0,255,255)) 
 
             output_video_frames.append(frame)
 
