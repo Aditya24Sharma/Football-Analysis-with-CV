@@ -6,7 +6,7 @@ def read_video(video_path):
     while True:
 
 
-        ret, frame = vid.read()    #returns a boolean(check if frame was read) and numpy array(image data)
+        ret, frame = vid.read()    #returns a boolean(check if frame was read) and numpy array(image data) [1080, 1920, 3] in my case
         if not ret:
             break
         frames.append(frame)

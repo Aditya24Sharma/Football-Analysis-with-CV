@@ -145,7 +145,7 @@ class Tracker:
                         )
             
 
-        print('Ran the ellipse function')
+        # print('Ran the ellipse function')
 
         return frame
     
@@ -178,7 +178,8 @@ class Tracker:
 
             #Draw players
             for track_id, player in player_dict.items(): #converting the dictionary to lists
-                frame = self.draw_ellipse(frame, player["bbox"], (0,0,255), track_id) #will be sending different colors to different teams
+                color = player['team_color']
+                frame = self.draw_ellipse(frame, player["bbox"], color, track_id) #will be sending different colors to different teams
             
             #Draw referees
             for track_id, referee in referee_dict.items(): 
