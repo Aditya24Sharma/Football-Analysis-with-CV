@@ -69,8 +69,8 @@ class TeamAssigner:
             return self.player_team_dict[player_id]
         
         player_color = self.get_player_color(frame, player_bbox)
-        print(f'The shape of player color is{player_color} and its reshaped form is {player_color.reshape(-1,1)} and prediction is {self.kmeans.predict(player_color.reshape(1,-1))}')
-        team_id = self.kmeans.predict(player_color.reshape(1,-1))[0]
+        # print(f'The shape of player color is{player_color} and its reshaped form is {player_color.reshape(-1,1)} and prediction is {self.kmeans.predict(player_color.reshape(1,-1))}')
+        team_id = self.kmeans.predict(player_color.reshape(1,-1))[0]    #predicts the closest cluster each sample belongs to. [0] is simply used to access the element in the array returned. 
         team_id += 1
 
         self.player_team_dict[player_id] = team_id

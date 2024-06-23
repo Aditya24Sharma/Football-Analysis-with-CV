@@ -69,3 +69,8 @@
 [[our initial output of the model is in runs directory and it gives bbox, however after we run it through main.py we take input video and process it and then produce
 an output, in this step we draw an ellipse. Hence, this doesn't show the video output like that of a model.]]
 - We now add the lable of each player with the ellipse
+- Then we are going to differentiate the teams based on the color of the kit that the players wear. We find the color of the kid by using color segmentation. 
+
+###### Color segmentation ######
+- Crop the images of the players from the whole frames. Using bounding box. 
+- Differentiate between the player and the background. Use K-means-clustering in this step [K-means clustering groups the dataset by iteration through means.]

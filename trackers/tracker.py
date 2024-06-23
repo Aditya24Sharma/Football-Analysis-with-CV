@@ -5,6 +5,7 @@ import os
 import numpy as np
 import cv2
 import sys
+import pandas as pd
 sys.path.append('../')  #allowing python to look for parent directories for the modules
 
 from utils.bbox_utils import get_center_of_bbox, get_bbox_width
@@ -15,6 +16,19 @@ class Tracker:
     def __init__(self, model_path):
         self.model = YOLO(model_path)
         self.tracker = sv.ByteTrack()   #track objects motion and path by assigning them with tracker id
+
+    def interpolate_ball_position(self, ball_positions):
+        ball_positions = [x.get(1,{}).get('bbox', []) for x in ball_positions]
+        df_ball_positions = pd.DataFrame(ball_positions, columns = ['x1', 'y1', 'x2', 'y2'])
+
+        #interpolate missing values
+        df_ball_positions = df_ball_positions.interpolate()
+        df_ball_positions = df_ball_positions.bfill()   #back filling for if the first value is missing
+
+        ball_positions = [{1:{'bbox':x}} for x in df_ball_positions.to_numpy().tolist()]
+
+        return ball_positions
+
 
     def detect_frames(self, frames):
         batch_size = 20         #instead of detecting every frame we will detect in every 20 frame
@@ -178,7 +192,7 @@ class Tracker:
 
             #Draw players
             for track_id, player in player_dict.items(): #converting the dictionary to lists
-                color = player['team_color']
+                color = player.get('team_color', (0,0,255)) #get funtion for a dictionary returns the value of given key. Also able to provide a placeholder color
                 frame = self.draw_ellipse(frame, player["bbox"], color, track_id) #will be sending different colors to different teams
             
             #Draw referees
