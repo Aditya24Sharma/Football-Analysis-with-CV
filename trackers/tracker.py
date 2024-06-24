@@ -194,6 +194,9 @@ class Tracker:
             for track_id, player in player_dict.items(): #converting the dictionary to lists
                 color = player.get('team_color', (0,0,255)) #get funtion for a dictionary returns the value of given key. Also able to provide a placeholder color
                 frame = self.draw_ellipse(frame, player["bbox"], color, track_id) #will be sending different colors to different teams
+
+                if player.get('has_ball', False):
+                    self.draw_triangle(frame, player['bbox'], (0,0,255) )
             
             #Draw referees
             for track_id, referee in referee_dict.items(): 
