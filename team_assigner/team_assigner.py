@@ -73,6 +73,11 @@ class TeamAssigner:
         team_id = self.kmeans.predict(player_color.reshape(1,-1))[0]    #predicts the closest cluster each sample belongs to. [0] is simply used to access the element in the array returned. 
         team_id += 1
 
+        #hard coding the goalie team because it cannot be differentiated due to difference in kit with the other team members
+        if player_id == 91:
+            team_id = 1
+        
+
         self.player_team_dict[player_id] = team_id
 
         return team_id

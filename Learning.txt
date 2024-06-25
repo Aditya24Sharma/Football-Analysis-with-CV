@@ -74,3 +74,12 @@ an output, in this step we draw an ellipse. Hence, this doesn't show the video o
 ###### Color segmentation ######
 - Crop the images of the players from the whole frames. Using bounding box. 
 - Differentiate between the player and the background. Use K-means-clustering in this step [K-means clustering groups the dataset by iteration through means.]
+###### Ball interpolation ####
+- There are some parts where the ball detection disappears. In that case we need to interpolate the balls motion between two frames where the ball is detected. 
+- We use pandas interpolate funciton to fill the missing tracks for the balls
+
+- Now we assign the player who has the ball. We find the closest player to the ball and draw a triangle at top of them. There is a minimum threshold for the player  
+assignment. We simply find the distance between the center of the ball and the players bouding box (for the bottom) and calculate it. 
+- Now we calculate the ball posession by each team. We find which team has the posession in each frame and assign them to a list containing the team in posession. 
+Then we simply calculate the percentage by dividing the posession of each team by the total. 
+- We have a problem with the goalie because his kit color is not the same as that of other players of his teams
